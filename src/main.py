@@ -1,6 +1,8 @@
+import asyncio
 import logging
 import sys
 
+from src.bot import bot_loop
 from src.database.connection.sync_db import engine
 from src.database.connection.utils import create_tables
 from src.export_xlsx import export_to_xlsx
@@ -21,3 +23,5 @@ if __name__ == "__main__":
     create_tables()
     import_from_xlsx(engine, "import/Просрочено 2022-06-09.xlsx", "Статика")
     export_to_xlsx(engine, "export/result.xlsx", "result")
+
+    asyncio.run(bot_loop())

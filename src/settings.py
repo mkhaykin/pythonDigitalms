@@ -10,6 +10,8 @@ class Settings:
     POSTGRES_PORT: int
     POSTGRES_DB: str
 
+    TG_BOT_TOKEN: str
+
 
 settings = Settings(
     POSTGRES_USER=environ["POSTGRES_USER"],
@@ -17,4 +19,5 @@ settings = Settings(
     POSTGRES_HOST=environ["POSTGRES_HOST"],
     POSTGRES_PORT=int(environ["POSTGRES_PORT"]),
     POSTGRES_DB=environ["POSTGRES_DB"],
+    TG_BOT_TOKEN=environ["TG_BOT_TOKEN"],
 )
