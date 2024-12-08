@@ -34,3 +34,13 @@ def create_tables() -> None:
 
 def drop_tables() -> None:
     Base.metadata.drop_all(bind=engine)
+
+
+def drop_table(table_name: str) -> None:
+    table = Base.metadata.tables.get(table_name)
+    if table:
+        Base.metadata.drop_all(bind=engine, tables=(table,))
+    else:
+        with engine.connect() as con:
+            con.execute(text(f"DROP TABLE IF EXISTS {table_name};"))
+            con.commit()
