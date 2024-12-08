@@ -10,6 +10,5 @@ class MixinID:
         UUID(as_uuid=True),
         server_default=func.gen_random_uuid(),
         primary_key=True,
-        default=uuid.uuid4,
         nullable=False,
     )

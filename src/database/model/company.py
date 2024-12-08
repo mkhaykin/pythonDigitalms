@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.dialects.mysql import VARCHAR
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -20,6 +20,14 @@ class Company(BaseModel):
 
     company_inn: Mapped[str] = mapped_column(
         VARCHAR(12),
-        unique=True,
+        # TODO: возможно есть проблема с входными данными unique=True,
         nullable=False,
+    )
+
+    __table_args__ = (
+        UniqueConstraint(
+            "region_id",
+            "company_inn",
+            name="unique_company",
+        ),
     )

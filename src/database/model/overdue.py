@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import INTEGER, CheckConstraint, ForeignKey
+from sqlalchemy import INTEGER, CheckConstraint, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.database.model.base import BaseModel
@@ -39,4 +39,10 @@ class Overdue(BaseModel):
 
     __table_args__ = (
         CheckConstraint("pack_count > 0", name="check__overdue__pack_count"),
+        UniqueConstraint(
+            "company_id",
+            "position_id",
+            "pack_count",
+            name="unique_overdue",
+        ),
     )

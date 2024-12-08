@@ -1,6 +1,12 @@
 from datetime import date
 
-from sqlalchemy import DATE, INTEGER, VARCHAR, CheckConstraint
+from sqlalchemy import (
+    DATE,
+    INTEGER,
+    VARCHAR,
+    CheckConstraint,
+    UniqueConstraint,
+)
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.database.model.base import BaseModel
@@ -11,7 +17,6 @@ class Position(BaseModel):
 
     gtin: Mapped[str] = mapped_column(
         VARCHAR(14),
-        unique=True,
         nullable=False,
     )
 
@@ -37,5 +42,10 @@ class Position(BaseModel):
         CheckConstraint(
             "count_doses_per_pack > 0",
             name="check__position__count_doses_per_pack",
+        ),
+        UniqueConstraint(
+            "gtin",
+            "series",
+            name="unique_position",
         ),
     )
