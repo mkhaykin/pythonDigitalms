@@ -6,7 +6,7 @@ from aiogram.enums import ParseMode
 from aiogram.filters import Command, CommandStart
 from aiogram.types import FSInputFile, Message
 
-from settings import settings
+from src.settings import settings
 
 dp = Dispatcher()
 logger = logging.getLogger(__name__)
