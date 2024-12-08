@@ -18,9 +18,13 @@ async def start_handler(message: Message) -> None:
         text="Hi! Enter '/report'",
     )
 
+
 @dp.message(Command("report"))
-async def report_handler(message: types.Message):
-    logger.info(f"Request report by user id: {str(message.from_user and message.from_user.id)}")
+async def report_handler(message: types.Message) -> None:
+    logger.info(
+        f"Request report by user id: "
+        f"{str(message.from_user and message.from_user.id)}",
+    )
 
     await message.answer_document(
         document=FSInputFile(
@@ -43,10 +47,12 @@ async def bot_loop() -> None:
         token=settings.TG_BOT_TOKEN,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
-    await bot.set_my_commands([
+    await bot.set_my_commands(
+        [
             types.BotCommand(command="start", description="Start"),
             types.BotCommand(command="report", description="Send the report"),
-    ])
+        ],
+    )
 
     logger.info("Bot loop starting ...")
     await dp.start_polling(bot)
